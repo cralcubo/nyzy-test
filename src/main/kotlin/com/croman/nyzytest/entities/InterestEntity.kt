@@ -12,5 +12,6 @@ class InterestEntity(
     val userInterests: List<UserInterestEntity>,
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     override val id: Int
 ): CharacteristicEntity

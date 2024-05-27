@@ -4,11 +4,11 @@ import jakarta.persistence.*
 import java.io.Serializable
 import kotlin.jvm.Transient
 
-@Table(name = "users_interests")
+@Table(name = "users_values")
 @Entity
 @AssociationOverrides(
-    AssociationOverride(name = "pk.user", joinColumns = [JoinColumn(name = "id")]),
-    AssociationOverride(name = "pk.value", joinColumns = [JoinColumn(name = "id")])
+    AssociationOverride(name = "pk.user", joinColumns = [JoinColumn(name = "user_id")]),
+    AssociationOverride(name = "pk.value", joinColumns = [JoinColumn(name = "value_id")])
 )
 class UserValueEntity(
     @Column(nullable = false)
@@ -29,7 +29,9 @@ class UserValueEntity(
 @Embeddable
 class UserValuePK(
     @ManyToOne
+    @JoinColumn(name = "user_id")
     val user: UserEntity,
     @ManyToOne
+    @JoinColumn(name = "value_id")
     val value: ValueEntity
 ) : Serializable
