@@ -13,22 +13,26 @@ import kotlin.jvm.Transient
 class UserInterestEntity(
     @Column(nullable = false)
     override val weight: Float,
-    @EmbeddedId
-    val pk: UserInterestPK
+    @Transient
+    private val user: UserEntity,
+    @Transient
+    private val interest: InterestEntity
 ) : UserCharacteristicEntity {
+
+    @EmbeddedId
+    private val pk: UserInterestPK = UserInterestPK(user, interest)
 
     @Transient
     override val characteristicId =
-        pk.interest.id!!
+        interest.id!!
 
     @Transient
     override val userId =
-        pk.user.id!!
-
+        user.id!!
 }
 
 @Embeddable
-class UserInterestPK(
+class UserInterestPK( // should be private
     @ManyToOne
     @JoinColumn(name = "user_id")
     val user: UserEntity,

@@ -9,7 +9,7 @@ class InterestEntity(
     override val name: String,
 
     @OneToMany(mappedBy = "pk.interest")
-    val userInterests: List<UserInterestEntity>,
+    val userInterests: List<UserInterestEntity>? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

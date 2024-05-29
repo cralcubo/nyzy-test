@@ -15,10 +15,10 @@ class UserEntity(
     val lastName: String,
 
     @OneToMany(mappedBy = "pk.user")
-    val userInterests: List<UserInterestEntity>,
+    val userInterests: List<UserInterestEntity>? = null,
 
     @OneToMany(mappedBy = "pk.user")
-    val userValues: List<UserValueEntity>,
+    val userValues: List<UserValueEntity>? = null,
 
     @ManyToMany(fetch = FetchType.EAGER) // This should be lazy
     @JoinTable(
@@ -26,7 +26,7 @@ class UserEntity(
         joinColumns = [JoinColumn(name = "user_a")],
         inverseJoinColumns = [JoinColumn(name = "user_b")]
     )
-    val connections: List<UserEntity>,
+    val connections: List<UserEntity>? = null,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

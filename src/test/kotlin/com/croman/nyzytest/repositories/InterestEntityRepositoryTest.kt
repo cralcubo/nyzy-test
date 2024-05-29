@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 
 @SpringBootTest
-class InterestRepositoryTest {
+class InterestEntityRepositoryTest {
 
     @Autowired
-    private lateinit var repository: InterestRepository
+    private lateinit var repository: InterestEntityRepository
 
     @Test
     fun saveAndRetrieveInterest() {

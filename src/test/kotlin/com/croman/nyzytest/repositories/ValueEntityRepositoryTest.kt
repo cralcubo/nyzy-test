@@ -8,9 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 
 @SpringBootTest
-class ValueRepositoryTest {
+class ValueEntityRepositoryTest {
     @Autowired
-    private lateinit var repository: ValueRepository
+    private lateinit var repository: ValueEntityRepository
 
     @Test
     fun saveAndRetrieve() {
