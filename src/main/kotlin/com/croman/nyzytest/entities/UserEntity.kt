@@ -20,7 +20,7 @@ class UserEntity(
     @OneToMany(mappedBy = "pk.user")
     val userValues: List<UserValueEntity>,
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) // This should be lazy
     @JoinTable(
         name = "user_connections",
         joinColumns = [JoinColumn(name = "user_a")],
@@ -30,5 +30,28 @@ class UserEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int
-)
+    val id: Int? = null
+) {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserEntity
+
+        if (age != other.age) return false
+        if (firstName != other.firstName) return false
+        if (lastName != other.lastName) return false
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = age
+        result = 31 * result + firstName.hashCode()
+        result = 31 * result + lastName.hashCode()
+        result = 31 * result + (id ?: 0)
+        return result
+    }
+}

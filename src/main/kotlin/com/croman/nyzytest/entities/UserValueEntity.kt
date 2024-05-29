@@ -19,11 +19,11 @@ class UserValueEntity(
 
     @Transient
     override val characteristicId =
-        pk.value.id
+        pk.value.id!!
 
     @Transient
     override val userId =
-        pk.user.id
+        pk.user.id!!
 }
 
 @Embeddable

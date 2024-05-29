@@ -19,11 +19,11 @@ class UserInterestEntity(
 
     @Transient
     override val characteristicId =
-        pk.interest.id
+        pk.interest.id!!
 
     @Transient
     override val userId =
-        pk.user.id
+        pk.user.id!!
 
 }
 
