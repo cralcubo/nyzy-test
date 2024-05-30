@@ -33,12 +33,6 @@ class UserInterestsTest {
             interest = i,
             weight = 5f
         )
-        
-
-
-
-
-
     }
 
 }
