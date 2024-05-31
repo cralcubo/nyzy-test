@@ -8,9 +8,6 @@ class InterestEntity(
     @Column(nullable = false)
     override val name: String,
 
-    @OneToMany(mappedBy = "pk.interest")
-    val userInterests: List<UserInterestEntity>? = null,
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     override val id: Int? = null
