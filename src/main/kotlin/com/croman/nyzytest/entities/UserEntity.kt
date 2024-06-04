@@ -14,13 +14,15 @@ class UserEntity(
     @Column(name = "last_name", nullable = false)
     val lastName: String,
 
-    @OneToMany(mappedBy = "pk.user")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     val userInterests: List<UserInterestEntity> = emptyList(),
 
-    @OneToMany(mappedBy = "pk.user")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     val userValues: List<UserValueEntity> = emptyList(),
 
-    @ManyToMany(fetch = FetchType.EAGER) // This should be lazy
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "user_connections",
         joinColumns = [JoinColumn(name = "user_a")],
@@ -32,8 +34,6 @@ class UserEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int? = null
 ) {
-
-
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

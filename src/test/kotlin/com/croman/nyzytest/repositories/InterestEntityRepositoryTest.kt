@@ -15,11 +15,43 @@ class InterestEntityRepositoryTest {
 
     @Test
     fun saveAndRetrieveInterest() {
-        val i = InterestEntity(name = "football", userInterests = emptyList())
+        val i = InterestEntity(name = "football")
         repository.save(i)
         // retrieve it
         val retrieved = repository.findByIdOrNull(i.id)
         retrieved shouldBe i
+    }
+
+    @Test
+    fun save20Interests() {
+        val humanInterests = listOf(
+            "Movies",
+            "Books",
+            "Sports",
+            "Cooking",
+            "Traveling",
+            "Music",
+            "Art",
+            "Photography",
+            "Gardening",
+            "Technology",
+            "Fitness",
+            "Fashion",
+            "Gaming",
+            "Dancing",
+            "Writing",
+            "Crafting",
+            "Hiking",
+            "Yoga",
+            "Volunteering",
+            "Fishing"
+        )
+
+        humanInterests.forEach { interest ->
+            val i = InterestEntity(name = interest)
+            repository.save(i)
+        }
+
     }
 
 }

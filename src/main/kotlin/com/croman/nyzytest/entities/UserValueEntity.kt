@@ -6,32 +6,29 @@ import kotlin.jvm.Transient
 
 @Table(name = "users_values")
 @Entity
-@AssociationOverrides(
-    AssociationOverride(name = "pk.user", joinColumns = [JoinColumn(name = "user_id")]),
-    AssociationOverride(name = "pk.value", joinColumns = [JoinColumn(name = "value_id")])
-)
 class UserValueEntity(
     @Column(nullable = false)
     override val weight: Float,
-    @EmbeddedId
-    val pk: UserValuePK
+
+    @Transient
+    @MapsId("userId")
+    private val user: UserEntity,
+
+    @ManyToOne
+    @JoinColumn(name = "value_id")
+    @MapsId("valueId")
+    override val characteristicEntity: ValueEntity
 ): UserCharacteristicEntity {
 
-    @Transient
-    override val characteristicId =
-        pk.value.id!!
+    @EmbeddedId
+    val pk: UserValuePK = UserValuePK(user.id!!, characteristicEntity.id!!)
 
-    @Transient
-    override val userId =
-        pk.user.id!!
 }
 
 @Embeddable
 class UserValuePK(
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
-    @ManyToOne
-    @JoinColumn(name = "value_id")
-    val value: ValueEntity
+    @Column(name = "user_id")
+    val userId: Int,
+    @Column(name = "value_id")
+    val valueId: Int
 ) : Serializable

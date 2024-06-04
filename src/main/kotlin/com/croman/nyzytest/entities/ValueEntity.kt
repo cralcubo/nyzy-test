@@ -5,7 +5,7 @@ import jakarta.persistence.*
 @Table(name = "human_values")
 @Entity
 class ValueEntity(
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     override val name: String,
 
     @Id

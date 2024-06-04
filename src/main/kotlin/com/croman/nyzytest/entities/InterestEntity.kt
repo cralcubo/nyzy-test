@@ -5,7 +5,7 @@ import jakarta.persistence.*
 @Table(name = "interests")
 @Entity
 class InterestEntity(
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     override val name: String,
 
     @Id

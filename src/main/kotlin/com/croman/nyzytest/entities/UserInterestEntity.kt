@@ -6,37 +6,67 @@ import kotlin.jvm.Transient
 
 @Table(name = "users_interests")
 @Entity
-@AssociationOverrides(
-    AssociationOverride(name = "pk.interest", joinColumns = [JoinColumn(name = "interest_id")]),
-    AssociationOverride(name = "pk.user", joinColumns = [JoinColumn(name = "user_id")]),
-)
 class UserInterestEntity(
     @Column(nullable = false)
     override val weight: Float,
+
     @Transient
+    @MapsId("userId")
     private val user: UserEntity,
-    @Transient
-    private val interest: InterestEntity
+
+    @ManyToOne
+    @JoinColumn(name = "interest_id")
+    @MapsId("interestId")
+    override val characteristicEntity: InterestEntity
 ) : UserCharacteristicEntity {
 
     @EmbeddedId
-    private val pk: UserInterestPK = UserInterestPK(user, interest)
+    private val pk: UserInterestPK = UserInterestPK(user.id!!, characteristicEntity.id!!)
 
-    @Transient
-    override val characteristicId =
-        interest.id!!
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
 
-    @Transient
-    override val userId =
-        user.id!!
+        other as UserInterestEntity
+
+        if (weight != other.weight) return false
+        if (pk != other.pk) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = weight.hashCode()
+        result = 31 * result + pk.hashCode()
+        return result
+    }
+
 }
 
 @Embeddable
-class UserInterestPK( // should be private
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    val user: UserEntity,
-    @ManyToOne
-    @JoinColumn(name = "interest_id")
-    val interest: InterestEntity
-) : Serializable
+class UserInterestPK(
+    @Column(name = "user_id")
+    val userId: Int,
+
+    @Column(name = "interest_id")
+    val interestId: Int
+) : Serializable {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserInterestPK
+
+        if (userId != other.userId) return false
+        if (interestId != other.interestId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = userId
+        result = 31 * result + interestId
+        return result
+    }
+}

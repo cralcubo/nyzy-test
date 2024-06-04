@@ -4,4 +4,7 @@ import com.croman.nyzytest.entities.ValueEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ValueEntityRepository : JpaRepository<ValueEntity, Int> {
+
+    fun findByName(name: String): ValueEntity?
+
 }

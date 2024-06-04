@@ -21,7 +21,7 @@ class PearsonCorrelation: SimilarityCalculator {
         val calculator = e1.asSequence()
             .flatMap { i1 ->
                 e2.asSequence()
-                    .filter { i1.characteristicId == it.characteristicId }
+                    .filter { i1.characteristicEntity.id == it.characteristicEntity.id }
                     .map { i1.weight to it.weight }
             }.toList().let { Calculator(it) }
 
