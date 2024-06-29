@@ -17,11 +17,11 @@ class UserValueEntity(
     @ManyToOne
     @JoinColumn(name = "value_id")
     @MapsId("valueId")
-    override val characteristicEntity: ValueEntity
-): UserCharacteristicEntity {
+    override val featureEntity: ValueEntity
+): UserFeatureEntity {
 
     @EmbeddedId
-    val pk: UserValuePK = UserValuePK(user.id!!, characteristicEntity.id!!)
+    val pk: UserValuePK = UserValuePK(user.id!!, featureEntity.id!!)
 
 }
 

@@ -1,6 +1,6 @@
-package com.croman.nyzytest.services.collective.intelligence
+package com.croman.nyzytest.services.collective.similarities
 
-import com.croman.nyzytest.entities.UserCharacteristicEntity
+import com.croman.nyzytest.entities.UserFeatureEntity
 
 interface SimilarityCalculator {
     /**
@@ -10,5 +10,5 @@ interface SimilarityCalculator {
      * The less close they are (meaning the least related they are)
      * the value will be: 0
      */
-    fun calculate(e1: Set<UserCharacteristicEntity>, e2: Set<UserCharacteristicEntity>) : Float
+    fun calculate(featuresA: Set<UserFeatureEntity>, featuresB: Set<UserFeatureEntity>) : Float
 }

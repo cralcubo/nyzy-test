@@ -48,7 +48,7 @@ class UserValueEntityRepositoryTest {
         val value = valueRepository.findByName("integrity")!!
         val entity = repository.findByIdOrNull(UserValuePK(user.id!!, value.id!!))!!
 
-        entity.characteristicEntity shouldBe value
+        entity.featureEntity shouldBe value
         entity.weight shouldBe 1.0f
     }
 
@@ -69,7 +69,7 @@ class UserValueEntityRepositoryTest {
 //            }
 
         val values = userRepository.findByFirstName("Freddy")!!.userValues
-            .map { it.characteristicEntity.name }
+            .map { it.featureEntity.name }
 
         values shouldHaveSize 6
         values shouldContainExactlyInAnyOrder listOf("integrity", "kindness", "compassion", "respect", "responsibility", "pride")

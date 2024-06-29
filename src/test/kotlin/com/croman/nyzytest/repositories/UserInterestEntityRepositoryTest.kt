@@ -5,7 +5,6 @@ import com.croman.nyzytest.entities.UserEntity
 import com.croman.nyzytest.entities.UserInterestEntity
 import com.croman.nyzytest.entities.UserInterestPK
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
-import io.kotest.matchers.collections.shouldContainInOrder
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import jakarta.transaction.Transactional
@@ -38,7 +37,7 @@ class UserInterestEntityRepositoryTest {
         val userInterest = UserInterestEntity(
             weight = 1.0f,
             user = user,
-            characteristicEntity = interest
+            featureEntity = interest
         )
         userInterestEntityRepository.save(userInterest)
     }
@@ -50,7 +49,7 @@ class UserInterestEntityRepositoryTest {
         val userInterest = userInterestEntityRepository.findByIdOrNull(UserInterestPK(user.id!!, interest.id!!))!!
 
         userInterest.weight shouldBe 1.0f
-        userInterest.characteristicEntity shouldBe interest
+        userInterest.featureEntity shouldBe interest
     }
 
     @Test
@@ -68,7 +67,7 @@ class UserInterestEntityRepositoryTest {
 //        userInterestEntityRepository.findAll() shouldHaveSize 5
 
         val interests = repoUser.findByFirstName("John")!!.userInterests
-            .map { it.characteristicEntity }
+            .map { it.featureEntity }
             .map { it.name }
 
 
@@ -86,7 +85,7 @@ class UserInterestEntityRepositoryTest {
                 val userInterest = UserInterestEntity(
                     weight = Random.nextFloat(),
                     user = user,
-                    characteristicEntity = interest
+                    featureEntity = interest
                 )
                 userInterestEntityRepository.save(userInterest)
             }

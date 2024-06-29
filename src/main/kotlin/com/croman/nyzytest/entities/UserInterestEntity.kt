@@ -17,11 +17,11 @@ class UserInterestEntity(
     @ManyToOne
     @JoinColumn(name = "interest_id")
     @MapsId("interestId")
-    override val characteristicEntity: InterestEntity
-) : UserCharacteristicEntity {
+    override val featureEntity: InterestEntity
+) : UserFeatureEntity {
 
     @EmbeddedId
-    private val pk: UserInterestPK = UserInterestPK(user.id!!, characteristicEntity.id!!)
+    private val pk: UserInterestPK = UserInterestPK(user.id!!, featureEntity.id!!)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

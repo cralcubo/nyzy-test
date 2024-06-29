@@ -1,6 +1,6 @@
 package com.croman.nyzytest.entities
 
-interface CharacteristicEntity {
+interface FeatureEntity {
     val name: String
     val id: Int?
 }

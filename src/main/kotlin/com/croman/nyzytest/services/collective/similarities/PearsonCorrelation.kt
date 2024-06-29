@@ -1,6 +1,6 @@
-package com.croman.nyzytest.services.collective.intelligence
+package com.croman.nyzytest.services.collective.similarities
 
-import com.croman.nyzytest.entities.UserCharacteristicEntity
+import com.croman.nyzytest.entities.UserFeatureEntity
 import com.croman.nyzytest.utilities.evalIf
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -14,20 +14,20 @@ import kotlin.math.sqrt
  * - 1: The highest correlation possible
  * - -1: The lowest correlation possible
  */
-class PearsonCorrelation: SimilarityCalculator {
+class PearsonCorrelation(private val samplesSize: Int = 10): SimilarityCalculator {
 
-    override fun calculate(e1: Set<UserCharacteristicEntity>, e2: Set<UserCharacteristicEntity>): Float {
+    override fun calculate(featuresA: Set<UserFeatureEntity>, featuresB: Set<UserFeatureEntity>): Float {
         // find common items and proceed with calculations
-        val calculator = e1.asSequence()
+        val calculator = featuresA.asSequence()
             .flatMap { i1 ->
-                e2.asSequence()
-                    .filter { i1.characteristicEntity.id == it.characteristicEntity.id }
+                featuresB.asSequence()
+                    .filter { i1.featureEntity.id == it.featureEntity.id }
                     .map { i1.weight to it.weight }
             }.toList().let { Calculator(it) }
 
         // To calculate the correlation we should have at least
-        // 2 values in the calculator (only 2 points can make a line to see if it correlates)
-        return evalIf(calculator.N > 1) {
+        // X values in the calculator
+        return evalIf(calculator.N > samplesSize) {
             calculator.run {
                 val numerator = (sumXY - (sumX * sumY / N))
                 val xDen = sumXSqr - (sumX.pow(2) / N)

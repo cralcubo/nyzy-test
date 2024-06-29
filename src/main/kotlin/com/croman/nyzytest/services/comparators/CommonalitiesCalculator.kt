@@ -1,19 +1,19 @@
-package com.croman.nyzytest.services
+package com.croman.nyzytest.services.comparators
 
 import com.croman.nyzytest.entities.UserEntity
-import com.croman.nyzytest.services.collective.intelligence.SimilarityCalculator
+import com.croman.nyzytest.services.collective.similarities.SimilarityCalculator
 
-class InterestsCalculator(
+class InterestsUsersComparator(
     private val similarityCalculator: SimilarityCalculator,
-    ): Calculator {
+    ): UsersComparator {
     override fun calculate(userA: UserEntity, userB: UserEntity): Float {
         return similarityCalculator.calculate(userA.userInterests.toSet(), userB.userInterests.toSet())
     }
 }
 
-class ValuesCalculator(
+class ValuesUsersComparator(
     private val similarityCalculator: SimilarityCalculator,
-    ): Calculator {
+    ): UsersComparator {
 
     override fun calculate(userA: UserEntity, userB: UserEntity): Float {
         return similarityCalculator.calculate(userA.userValues.toSet(), userB.userValues.toSet())
