@@ -24,16 +24,24 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.flywaydb:flyway-core")
-	implementation("org.flywaydb:flyway-mysql")
+//	implementation("org.flywaydb:flyway-core")
+//	implementation("org.flywaydb:flyway-mysql")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
 	runtimeOnly("com.mysql:mysql-connector-j")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+//	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+//	testImplementation("org.testcontainers:junit-jupiter")
+//	testImplementation("org.testcontainers:mysql")
+
 	testImplementation("io.kotest:kotest-runner-junit5-jvm:5.1.0")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testRuntimeOnly("com.h2database:h2")
 
 }
 

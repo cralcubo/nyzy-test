@@ -4,6 +4,7 @@ import com.croman.nyzytest.entities.*
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -68,11 +69,13 @@ class UserValueEntityRepositoryTest {
 //                repository.save(UserValueEntity(1.0f, user, valueEntity))
 //            }
 
-        val values = userRepository.findByFirstName("Freddy")!!.userValues
-            .map { it.featureEntity.name }
+        val user = userRepository.findByIdOrNull(1)
+        user shouldNotBe null
+
+        val values = user!!.userValues
 
         values shouldHaveSize 6
-        values shouldContainExactlyInAnyOrder listOf("integrity", "kindness", "compassion", "respect", "responsibility", "pride")
+        values.map { it.featureEntity.name } shouldContainExactlyInAnyOrder listOf("integrity", "kindness", "compassion", "respect", "responsibility", "pride")
     }
 
 
